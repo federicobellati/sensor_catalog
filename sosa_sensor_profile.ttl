@@ -1,0 +1,178 @@
+@prefix ismatemplate:    <https://w3id.org/cnr-ismar/sensor-template/> .
+@prefix ismainstance:    <https://w3id.org/cnr-ismar/sensor-instance/> .
+@prefix dcterms:         <http://purl.org/dc/terms/> .
+@prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:          <http://schema.org/> .
+@prefix sosa:            <http://www.w3.org/ns/sosa/> .
+@prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
+@prefix ssn:             <http://www.w3.org/ns/ssn/> .
+@prefix ssn-system:      <http://www.w3.org/ns/ssn/systems/> .
+@prefix omtype:          <http://www.opengis.net/def/observationType/OGC-OM/2.0/> .
+@prefix unit:            <http://qudt.org/vocab/unit/> .
+@prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
+@prefix ex:              <https://example.org/> .
+
+# This graph describes a reusable instrument-model template and its sensing subsystems.
+# The deployment at the end identifies one use of the model, not the model itself.
+ismatemplate:CTD-SB37
+    # ssn:System describes the instrument system; schema:ProductModel identifies its product model.
+    a ssn:System, schema:ProductModel ;
+
+	# The example URI identifies the version of the template this profile follows.
+	# Replace it with the persistent URI when the template specification is published.
+	dcterms:conformsTo <https://example.org/cnr-ismar/sensor-template/v1.0.0> ;
+
+    # Manufacturer is linked to the NERC vocabulary entry; the labels are human-readable names.
+    schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
+	rdfs:label "SeaBird SBE37" ;
+    schema:name "SeaBird SBE37" ;
+    # Mandatory system-generated alternative identifier intended for systems requiring compact alphanumeric identifiers.
+    skos:notation "SB-SB37" ;
+
+    # The product part number identifies the specific SBE37 variant represented in this example.
+    schema:mpn "SBE37-SMP-ODO" ;
+
+    # NERC identifies this SeaBird model; GCMD classifies it as a CTD instrument class.
+    dcterms:source <http://vocab.nerc.ac.uk/collection/L22/current/TOOL0869/> ;
+    schema:category <https://gcmd.earthdata.nasa.gov/kms/concept/01cc0beb-7c9a-40ed-ad86-0661b41aee53> ;
+
+    # General model description, official product page, image, and datasheet.
+    schema:description "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
+    schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
+    schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
+    schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
+
+    # The decoder is software required to turn the instrument's encoded output into observations.
+    dcterms:requires ismatemplate:CTD-SB37-DecodeDriver ;
+
+    # The following common-property values are demonstration values taken from the Sentinel YAML.
+    # They illustrate the mapping and are not verified specifications of the SeaBird model.
+    schema:material "Plastic body with metal-shell connector" ;
+    # Dimensions use centimetres (CMT); weight uses kilograms (KGM).
+    # Length and diameter are represented as additional properties because Schema.org has no dedicated terms for them.
+    schema:width [
+        a schema:QuantitativeValue ;
+        schema:value 0.0 ;
+        schema:unitCode "CMT"
+    ] ;
+    schema:height [
+        a schema:QuantitativeValue ;
+        schema:value 0.0 ;
+        schema:unitCode "CMT"
+    ] ;
+    schema:weight [
+        a schema:QuantitativeValue ;
+        schema:value 4.0 ;
+        schema:unitCode "KGM"
+    ] ;
+    # Zero width and height are copied as supplied in the reference YAML; check whether they mean unknown.
+    # Additional common characteristics are expressed as PropertyValue pairs when Schema.org has no specific term.
+    schema:additionalProperty [
+        a schema:PropertyValue ;
+        # Instrument may be physical or virtual.
+        schema:name "deviceType" ;
+        schema:value "virtual"
+    ], [
+        a schema:PropertyValue ;
+        # Indicates whether the instrument stores measurements internally.
+        schema:name "temporaryStorage" ;
+        schema:value true
+    ], [
+        a schema:PropertyValue ;
+        # Describes the data as instantaneous, cumulative, or various.
+        schema:name "dataType" ;
+        schema:value "instantaneous"
+    ], [
+        a schema:PropertyValue ;
+        # Format of the data produced by the instrument.
+        schema:name "outputDataFormat" ;
+        schema:value "proprietary"
+    ], [
+        a schema:PropertyValue ;
+        # Length and diameter are in centimetres.
+        schema:name "length" ;
+        schema:value 17.3 ;
+        schema:unitCode "CMT"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "diameter" ;
+        schema:value 17.8 ;
+        schema:unitCode "CMT"
+    ], [
+        a schema:PropertyValue ;
+        # Power supply characteristics are useful for operation and maintenance.
+        schema:name "electricalCurrentType" ;
+        schema:value "DC"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "inputPowerRange" ;
+        schema:value "12-20 VDC"
+    ], [
+        a schema:PropertyValue ;
+        # Operating temperature limits are expressed in degrees Celsius.
+        schema:name "operatingTemperature" ;
+        schema:minValue -5 ;
+        schema:maxValue 45 ;
+        schema:unitCode "CEL"
+    ] ;
+
+    # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
+    ssn:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "T1" ;
+        sosa:observes p02:TEMP ;
+        schema:additionalProperty [
+            a schema:PropertyValue ;
+            schema:name "observationType" ;
+            schema:value omtype:OM_Measurement
+        ] ;
+        # Accuracy and resolution are system capabilities, with their measurement units.
+        ssn-system:hasSystemCapability [
+            a ssn-system:SystemCapability ;
+            ssn-system:hasSystemProperty [
+                a ssn:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                schema:value 0.01 ;
+                schema:unitCode unit:DEG_C
+            ], [
+                a ssn:Property, ssn-system:Resolution, schema:PropertyValue ;
+                schema:value 0.0001 ;
+                schema:unitCode unit:DEG_C
+            ]
+        ]
+    ] ;
+    ssn:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "C1" ;
+        sosa:observes p02:CNDC ;
+        schema:additionalProperty [
+            a schema:PropertyValue ;
+            schema:name "observationType" ;
+            schema:value omtype:OM_Measurement
+        ] ;
+        ssn-system:hasSystemCapability [
+            a ssn-system:SystemCapability ;
+            ssn-system:hasSystemProperty [
+                a ssn:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                schema:value 0.0003 ;
+                schema:unitCode unit:S-PER-M
+            ], [
+                a ssn:Property, ssn-system:Resolution, schema:PropertyValue ;
+                schema:value 0.00001 ;
+                schema:unitCode unit:S-PER-M
+            ]
+        ]
+    ] .
+
+# Software decoder associated with this instrument-model profile.
+ismatemplate:CTD-SB37-DecodeDriver
+    a schema:SoftwareSourceCode ;
+    schema:name "SBE37 data decoder" ;
+    schema:description "Software required to decode data streams produced by the CTD-SB37 model, including ASCII, XML, or JSON formats, and extract its observations as structured data."@en ;
+    schema:programmingLanguage "Python" ;
+    schema:encodingFormat "text/x-python" ;
+    schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py> .
+
+# Example deployment of the model; instance-specific metadata belongs on this resource.
+ismainstance:CTD-042
+    a ssn:Deployment ;
+    ssn:deployedSystem ismatemplate:CTD-SB37 .
