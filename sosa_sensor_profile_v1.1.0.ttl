@@ -1,0 +1,273 @@
+@prefix ismatemplate: <https://w3id.org/cnr-ismar/sensor-template/> .
+@prefix dcterms:     <http://purl.org/dc/terms/> .
+@prefix prov:        <http://www.w3.org/ns/prov#> .
+@prefix xsd:         <http://www.w3.org/2001/XMLSchema#> .
+@prefix adms:        <http://www.w3.org/ns/adms#> .
+@prefix dcat:        <http://www.w3.org/ns/dcat#> .
+@prefix rdfs:        <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema:      <http://schema.org/> .
+@prefix sosa:        <http://www.w3.org/ns/sosa/> .
+@prefix sosa-cap:    <http://www.w3.org/ns/sosa/system-capability-properties#> .
+@prefix skos:        <http://www.w3.org/2004/02/skos/core#> .
+@prefix qudt:        <http://qudt.org/schema/qudt/> .
+@prefix unit:        <http://qudt.org/vocab/unit/> .
+@prefix p02:         <http://vocab.nerc.ac.uk/collection/P02/current/> .
+@prefix ex:          <https://example.org/> .
+
+# Model profile for the SBE 37-SMP-ODO, with manufacturer values from the
+# SBE37SMPODOMicroCAT datasheet (revision September 2021) in the linked ZIP.
+# Optional pressure and housing variants are kept explicit; no one configuration
+# is asserted as the configuration of a particular physical instrument.
+ismatemplate:CTD-SB37
+    prov:wasAttributedTo <https://orcid.org/0000-0002-7997-219X> ;
+    prov:qualifiedAttribution [
+        a prov:Attribution ;
+        prov:agent <https://orcid.org/0000-0002-7997-219X> ;
+        prov:hadRole <http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/author>
+    ] ;
+    dcterms:created "2026-10-08T09:12:58Z"^^xsd:dateTime ;
+    dcterms:modified "2026-10-08T09:12:58Z"^^xsd:dateTime ;
+    dcat:version "1.1.0" ;
+    a sosa:System, schema:ProductModel ;
+    dcterms:conformsTo <https://example.org/cnr-ismar/sensor-template/v1.0.0> ;
+    schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
+    rdfs:label "SeaBird SBE 37-SMP-ODO MicroCAT"@en ;
+    skos:notation "SB-SB37-SMP-ODO" ;
+    dcterms:identifier "a4a977dd-2b55-4927-bb6c-c8bdda52409d" ;
+    dcterms:identifier "urn:uuid:6d7c67f6-9e9f-4c1e-8c44-bce7c2926932" ;
+    schema:mpn "SBE37-SMP-ODO" ;
+    dcterms:source <https://www.seabird.com/hubfs/Product%20Assets/SBE%2037%20MicroCAT/Datasheets/SBE%2037_Datasheets_Feb%2016.zip?hsLang=en> ;
+    dcterms:source <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
+    schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
+    schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
+    schema:description "The SBE 37-SMP-ODO is a pumped moored MicroCAT with conductivity, temperature, and optical dissolved oxygen sensors; a strain-gauge pressure sensor is optional. It has serial RS-232 or RS-485, internal batteries and memory, and is available with a plastic 350 m or titanium 7000 m housing."@en ;
+    rdfs:comment "Manufacturer datasheet: SBE37SMPODOMicroCAT.pdf, revision September 2021. Specifications are model-level. Housing material/depth rating and corresponding weights are configuration alternatives; pressure sensing is optional."@en ;
+
+    # Physical dimensions in the datasheet drawing are shown with the wire
+    # mounting clamp and guide. The diameter and housing-dome note are kept
+    # separately so the drawing's dimensions are not mistaken for a bare body.
+    schema:material "Plastic or titanium housing, depending on depth rating" ;
+    schema:height [
+        a schema:QuantitativeValue ;
+        schema:value 60.73 ;
+        schema:unitCode "CMT"
+    ] ;
+    schema:width [
+        a schema:QuantitativeValue ;
+        schema:value 13.89 ;
+        schema:unitCode "CMT"
+    ] ;
+    schema:additionalProperty [
+        a schema:PropertyValue ;
+        schema:name "dimensionDrawingConfiguration" ;
+        schema:value "With wire mounting clamp and guide"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "bodyDiameterAsDimensioned" ;
+        schema:value 6.22 ;
+        schema:unitCode "CMT"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "clampAndGuideCrossSectionHeight" ;
+        schema:value 10.3 ;
+        schema:unitCode "CMT"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "titaniumHousingDomeDiameterDifference" ;
+        schema:value "9 mm smaller than the plastic housing dome"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "plasticHousingDepthRating" ;
+        schema:value 350 ;
+        schema:unitCode "MTR"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "titaniumHousingDepthRating" ;
+        schema:value 7000 ;
+        schema:unitCode "MTR"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "plasticHousingWeightInAir" ;
+        schema:value 3.4 ;
+        schema:unitCode "KGM"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "plasticHousingWeightInWater" ;
+        schema:value 1.5 ;
+        schema:unitCode "KGM"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "titaniumHousingWeightInAir" ;
+        schema:value 4.2 ;
+        schema:unitCode "KGM"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "titaniumHousingWeightInWater" ;
+        schema:value 2.3 ;
+        schema:unitCode "KGM"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "externalPowerInput" ;
+        schema:value "9-24 VDC, 0.25 A"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "nominalBatteryCapacity" ;
+        schema:value 7.8 ;
+        schema:unitCode unit:A-HR
+    ], [
+        a schema:PropertyValue ;
+        schema:name "memoryCapacityCTD_DO" ;
+        schema:value 380000 ;
+        schema:unitText "samples"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "acquisitionTime" ;
+        schema:value "2.4-3.2 sec/sample (see manufacturer manual)"
+    ], [
+        a schema:PropertyValue ;
+        schema:name "pressureSensorDepthRatings" ;
+        schema:value "Optional strain-gauge pressure sensor: 20, 100, 350, 600, 1000, 2000, 3500, or 7000 m deployment-depth capability"
+    ] ;
+
+    sosa:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "T1" ;
+        rdfs:label "SBE 37 temperature sensor"@en ;
+        sosa:observes p02:TEMP ;
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            rdfs:label "Temperature capability, accuracy ±0.002 °C"@en ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureAccuracy ;
+                sosa:hasResult [ qudt:value 0.002 ; qudt:hasUnit unit:DEG_C ] ;
+                rdfs:comment "Manufacturer states ±0.002 °C from -5 °C through 35 °C. The value is the maximum absolute error."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureResolution ;
+                sosa:hasResult [ qudt:value 0.0001 ; qudt:hasUnit unit:DEG_C ]
+            ] ;
+            sosa:hasValidityContext [
+                a sosa:ObservationCollection ;
+                sosa:hasMember [
+                    a sosa:Observation ;
+                    sosa:observedProperty sosa-cap:MinMeasurableTemperature ;
+                    sosa:hasResult [ qudt:value -5 ; qudt:hasUnit unit:DEG_C ]
+                ], [
+                    a sosa:Observation ;
+                    sosa:observedProperty sosa-cap:MaxMeasurableTemperature ;
+                    sosa:hasResult [ qudt:value 35 ; qudt:hasUnit unit:DEG_C ]
+                ]
+            ]
+        ], [
+            a sosa:ObservationCollection ;
+            rdfs:label "Temperature capability, accuracy ±0.01 °C"@en ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureAccuracy ;
+                sosa:hasResult [ qudt:value 0.01 ; qudt:hasUnit unit:DEG_C ] ;
+                rdfs:comment "Manufacturer states ±0.01 °C above 35 °C through 45 °C. The value is the maximum absolute error."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureResolution ;
+                sosa:hasResult [ qudt:value 0.0001 ; qudt:hasUnit unit:DEG_C ]
+            ] ;
+            sosa:hasValidityContext [
+                a sosa:ObservationCollection ;
+                sosa:hasMember [
+                    a sosa:Observation ;
+                    sosa:observedProperty sosa-cap:MinMeasurableTemperature ;
+                    sosa:hasResult [ qudt:value 35 ; qudt:hasUnit unit:DEG_C ]
+                ], [
+                    a sosa:Observation ;
+                    sosa:observedProperty sosa-cap:MaxMeasurableTemperature ;
+                    sosa:hasResult [ qudt:value 45 ; qudt:hasUnit unit:DEG_C ]
+                ]
+            ]
+        ] ;
+        schema:unitCode unit:DEG_C
+    ] ;
+
+    sosa:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "C1" ;
+        rdfs:label "SBE 37 conductivity sensor"@en ;
+        sosa:observes p02:CNDC ;
+        schema:unitCode unit:S-PER-M ;
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Accuracy ;
+                sosa:hasResult [ qudt:value 0.0003 ; qudt:hasUnit unit:S-PER-M ] ;
+                rdfs:comment "Manufacturer states ±0.0003 S/m (±0.003 mS/cm); value is the maximum absolute error."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Resolution ;
+                sosa:hasResult [ qudt:value 0.00001 ; qudt:hasUnit unit:S-PER-M ]
+            ]
+        ] ;
+        schema:additionalProperty [
+            a schema:PropertyValue ;
+            schema:name "measurementRange" ;
+            schema:minValue 0 ;
+            schema:maxValue 7 ;
+            schema:unitCode unit:S-PER-M
+        ]
+    ] ;
+
+    sosa:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "O1" ;
+        rdfs:label "SBE 63 optical dissolved oxygen sensor"@en ;
+        sosa:observes p02:DOXY ;
+        schema:unitCode unit:MicroMOL-PER-KiloGM ;
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Accuracy ;
+                sosa:hasResult [ qudt:value 3 ; qudt:hasUnit unit:MicroMOL-PER-KiloGM ] ;
+                rdfs:comment "Manufacturer specifies the larger of ±3 µmol/kg (also 0.07 ml/L or 0.1 mg/L) or ±2% of reading; this result records the absolute term of the stated accuracy rule."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Accuracy ;
+                sosa:hasResult [ qudt:value 2 ; qudt:hasUnit unit:PERCENT ] ;
+                rdfs:comment "Manufacturer specifies the larger of ±3 µmol/kg or ±2% of reading; this result records the relative term of the stated accuracy rule."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Resolution ;
+                sosa:hasResult [ qudt:value 0.2 ; qudt:hasUnit unit:MicroMOL-PER-KiloGM ]
+            ]
+        ] ;
+        schema:additionalProperty [
+            a schema:PropertyValue ;
+            schema:name "measurementRange" ;
+            schema:value "120% of surface saturation in all natural waters (fresh and salt)"
+        ]
+    ] ;
+
+    # Pressure sensing is optional on this model. The listed metre values are
+    # deployment-depth ratings, not values asserted as the pressure range.
+    sosa:hasSubSystem [
+        a sosa:Sensor ;
+        dcterms:identifier "P1" ;
+        rdfs:label "Optional SBE 37 strain-gauge pressure sensor"@en ;
+        rdfs:comment "Optional configuration; the manufacturer lists eight deployment-depth ratings. The datasheet expresses accuracy and resolution as percentages of full scale."@en ;
+        sosa:observes p02:PREXMCAT ;
+        schema:unitCode unit:DeciBAR ;
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Accuracy ;
+                sosa:hasResult [ qudt:value 0.1 ; qudt:hasUnit unit:PERCENT ] ;
+                rdfs:comment "Manufacturer states ±0.1% of full scale range."@en
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:Resolution ;
+                sosa:hasResult [ qudt:value 0.002 ; qudt:hasUnit unit:PERCENT ] ;
+                rdfs:comment "Manufacturer states 0.002% of full scale range."@en
+            ]
+        ]
+    ] .
