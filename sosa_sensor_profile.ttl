@@ -8,10 +8,9 @@
 @prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema:          <http://schema.org/> .
 @prefix sosa:            <http://www.w3.org/ns/sosa/> .
-@prefix sosa-cap:        <http://www.w3.org/ns/sosa/system-capability-properties#> .
 @prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
+@prefix ssn-system:      <http://www.w3.org/ns/ssn/systems/> .
 @prefix omtype:          <http://www.opengis.net/def/observationType/OGC-OM/2.0/> .
-@prefix qudt:            <http://qudt.org/schema/qudt/> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
 @prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
 @prefix ex:              <https://example.org/> .
@@ -30,7 +29,13 @@ ismatemplate:CTD-SB37
     # The date time of creation of this profile
 	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
-    # ssn:System describes the instrument system; schema:ProductModel identifies its product model.
+    # Version indicator for this semantic profile
+    dcat:version "1.0.0" ;
+
+    # The date time this version of the profile was last modified
+	dcterms:modified "2026-10-08T09:46:37Z"^^xsd:dateTime ;
+
+    # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
     a sosa:System, schema:ProductModel ;
 
 	# The example URI identifies the version of the template this profile follows.
@@ -152,78 +157,62 @@ ismatemplate:CTD-SB37
     sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "T1" ;
-        sosa:observes p02:TEMP ;
+		sosa:observes p02:TEMP ;
 		schema:unitCode unit:DEG_C ;
         schema:additionalProperty [
             a schema:PropertyValue ;
             schema:name "observationType" ;
             schema:value omtype:OM_Measurement
         ] ;
-        # Capabilities are described as observations in the current SOSA System Capabilities model.
-        sosa:hasSystemCapability [
-            a sosa:ObservationCollection ;
-            qudt:hasUnit unit:DEG_C ;
-            sosa:hasMember [
-                a sosa:Observation ;
-                sosa:observedProperty sosa-cap:TemperatureAccuracy ;
-                sosa:hasSimpleResult 0.01
+        # Accuracy, resolution, and range are system capabilities, with their measurement units.
+        ssn-system:hasSystemCapability [
+            a ssn-system:SystemCapability ;
+            ssn-system:hasSystemProperty [
+                a sosa:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                schema:value 0.01 ;
+                schema:unitCode unit:DEG_C
             ], [
-                a sosa:Observation ;
-                sosa:observedProperty sosa-cap:TemperatureResolution ;
-                sosa:hasSimpleResult 0.0001
+                a sosa:Property, ssn-system:Resolution, schema:PropertyValue ;
+                schema:value 0.0001 ;
+                schema:unitCode unit:DEG_C
             ], [
-                a sosa:Observation ;
-                sosa:observedProperty sosa-cap:MinMeasurableTemperature ;
-                sosa:hasSimpleResult 350
-            ], [
-                a sosa:Observation ;
-                sosa:observedProperty sosa-cap:MaxMeasurableTemperature ;
-                sosa:hasSimpleResult 1650
+                a sosa:Property, schema:PropertyValue ;
+                schema:name "measurementRange" ;
+                schema:minValue 350 ;
+                schema:maxValue 1650 ;
+                schema:unitCode unit:DEG_C
             ]
         ]
     ] ;
     sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "C1" ;
-        sosa:observes p02:CNDC ;
+		sosa:observes p02:CNDC ;
 		schema:unitCode unit:S-PER-M ;
         schema:additionalProperty [
             a schema:PropertyValue ;
             schema:name "observationType" ;
             schema:value omtype:OM_Measurement
         ] ;
-        sosa:hasSystemCapability [
-            a sosa:ObservationCollection ;
-            qudt:hasUnit unit:S-PER-M ;
-            sosa:hasMember [
-                a sosa:Observation ;
-                sosa:observedProperty ismatemplate:ConductivityAccuracy ;
-                sosa:hasSimpleResult 0.0003
+        ssn-system:hasSystemCapability [
+            a ssn-system:SystemCapability ;
+            ssn-system:hasSystemProperty [
+                a sosa:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                schema:value 0.0003 ;
+                schema:unitCode unit:S-PER-M
             ], [
-                a sosa:Observation ;
-                sosa:observedProperty ismatemplate:ConductivityResolution ;
-                sosa:hasSimpleResult 0.00001
+                a sosa:Property, ssn-system:Resolution, schema:PropertyValue ;
+                schema:value 0.00001 ;
+                schema:unitCode unit:S-PER-M
             ], [
-                a sosa:Observation ;
-                sosa:observedProperty ismatemplate:MinMeasurableConductivity ;
-                sosa:hasSimpleResult 350
-            ], [
-                a sosa:Observation ;
-                sosa:observedProperty ismatemplate:MaxMeasurableConductivity ;
-                sosa:hasSimpleResult 1650
+                a sosa:Property, schema:PropertyValue ;
+                schema:name "measurementRange" ;
+                schema:minValue 350 ;
+                schema:maxValue 1650 ;
+                schema:unitCode unit:S-PER-M
             ]
         ]
     ] .
-
-# Local system-capability property terms for conductivity, absent from the draft's illustrative sample vocabulary.
-ismatemplate:ConductivityAccuracy a sosa:Property ;
-    rdfs:label "Conductivity accuracy"@en .
-ismatemplate:ConductivityResolution a sosa:Property ;
-    rdfs:label "Conductivity resolution"@en .
-ismatemplate:MinMeasurableConductivity a sosa:Property ;
-    rdfs:label "Minimum measurable conductivity"@en .
-ismatemplate:MaxMeasurableConductivity a sosa:Property ;
-    rdfs:label "Maximum measurable conductivity"@en .
 
 # Software decoder associated with this instrument-model profile.
 ismatemplate:CTD-SB37-DecodeDriver
@@ -234,7 +223,3 @@ ismatemplate:CTD-SB37-DecodeDriver
     schema:encodingFormat "text/x-python" ;
     schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py> .
 
-# Example deployment of the model; instance-specific metadata belongs on this resource.
-ismainstance:CTD-042
-    a sosa:Deployment ;
-    sosa:deployedSystem ismatemplate:CTD-SB37 .
