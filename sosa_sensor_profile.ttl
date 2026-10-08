@@ -1,13 +1,17 @@
 @prefix ismatemplate:    <https://w3id.org/cnr-ismar/sensor-template/> .
 @prefix ismainstance:    <https://w3id.org/cnr-ismar/sensor-instance/> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
+@prefix prov:            <http://www.w3.org/ns/prov#> .
+@prefix xsd:             <http://www.w3.org/2001/XMLSchema#> .
+@prefix adms:            <http://www.w3.org/ns/adms#> .
+@prefix dcat:            <http://www.w3.org/ns/dcat#> .
 @prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema:          <http://schema.org/> .
 @prefix sosa:            <http://www.w3.org/ns/sosa/> .
+@prefix sosa-cap:        <http://www.w3.org/ns/sosa/system-capability-properties#> .
 @prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
-@prefix ssn:             <http://www.w3.org/ns/ssn/> .
-@prefix ssn-system:      <http://www.w3.org/ns/ssn/systems/> .
 @prefix omtype:          <http://www.opengis.net/def/observationType/OGC-OM/2.0/> .
+@prefix qudt:            <http://qudt.org/schema/qudt/> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
 @prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
 @prefix ex:              <https://example.org/> .
@@ -15,8 +19,19 @@
 # This graph describes a reusable instrument-model template and its sensing subsystems.
 # The deployment at the end identifies one use of the model, not the model itself.
 ismatemplate:CTD-SB37
+    # The entity responsable for the creation of this profile
+    prov:wasAttributedTo <https://orcid.org/0000-0002-7997-219X> ;
+    prov:qualifiedAttribution [
+      a prov:Attribution ;
+      prov:agent <https://orcid.org/0000-0002-7997-219X> ;
+      prov:hadRole <http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/author> ;
+    ] ;
+
+    # The date time of creation of this profile
+	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
+
     # ssn:System describes the instrument system; schema:ProductModel identifies its product model.
-    a ssn:System, schema:ProductModel ;
+    a sosa:System, schema:ProductModel ;
 
 	# The example URI identifies the version of the template this profile follows.
 	# Replace it with the persistent URI when the template specification is published.
@@ -24,10 +39,25 @@ ismatemplate:CTD-SB37
 
     # Manufacturer is linked to the NERC vocabulary entry; the labels are human-readable names.
     schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
-	rdfs:label "SeaBird SBE37" ;
-    schema:name "SeaBird SBE37" ;
+	rdfs:label "SeaBird model SBE37" ;
+
     # Mandatory system-generated alternative identifier intended for systems requiring compact alphanumeric identifiers.
     skos:notation "SB-SB37" ;
+    dcterms:identifier "a4a977dd-2b55-4927-bb6c-c8bdda52409d" ;
+    dcterms:identifier "urn:uuid:6d7c67f6-9e9f-4c1e-8c44-bce7c2926932" ;
+    adms:identifier [
+        a adms:Identifier ;
+        skos:notation "adriatic_temperature_daily" ;
+        dcterms:type ex:String32
+    ] ;
+
+    adms:identifier [
+        a adms:Identifier ;
+        skos:notation "ismar_temp_001" ;
+       dcterms:type ex:SimpleString
+    ] ;
+
+    dcat:landingPage <https://rdfdata.lteritalia.it/sensors/systemsType/NoX/JB_Hyperspectral_Devices/a4a977dd-2b55-4927-bb6c-c8bdda52409d.xml> ;
 
     # The product part number identifies the specific SBE37 variant represented in this example.
     schema:mpn "SBE37-SMP-ODO" ;
@@ -38,6 +68,8 @@ ismatemplate:CTD-SB37
 
     # General model description, official product page, image, and datasheet.
     schema:description "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
+    rdfs:comment "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
+
     schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
     schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
@@ -117,51 +149,81 @@ ismatemplate:CTD-SB37
     ] ;
 
     # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
-    ssn:hasSubSystem [
+    sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "T1" ;
         sosa:observes p02:TEMP ;
+		schema:unitCode unit:DEG_C ;
         schema:additionalProperty [
             a schema:PropertyValue ;
             schema:name "observationType" ;
             schema:value omtype:OM_Measurement
         ] ;
-        # Accuracy and resolution are system capabilities, with their measurement units.
-        ssn-system:hasSystemCapability [
-            a ssn-system:SystemCapability ;
-            ssn-system:hasSystemProperty [
-                a ssn:Property, ssn-system:Accuracy, schema:PropertyValue ;
-                schema:value 0.01 ;
-                schema:unitCode unit:DEG_C
+        # Capabilities are described as observations in the current SOSA System Capabilities model.
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            qudt:hasUnit unit:DEG_C ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureAccuracy ;
+                sosa:hasSimpleResult 0.01
             ], [
-                a ssn:Property, ssn-system:Resolution, schema:PropertyValue ;
-                schema:value 0.0001 ;
-                schema:unitCode unit:DEG_C
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:TemperatureResolution ;
+                sosa:hasSimpleResult 0.0001
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:MinMeasurableTemperature ;
+                sosa:hasSimpleResult 350
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty sosa-cap:MaxMeasurableTemperature ;
+                sosa:hasSimpleResult 1650
             ]
         ]
     ] ;
-    ssn:hasSubSystem [
+    sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "C1" ;
         sosa:observes p02:CNDC ;
+		schema:unitCode unit:S-PER-M ;
         schema:additionalProperty [
             a schema:PropertyValue ;
             schema:name "observationType" ;
             schema:value omtype:OM_Measurement
         ] ;
-        ssn-system:hasSystemCapability [
-            a ssn-system:SystemCapability ;
-            ssn-system:hasSystemProperty [
-                a ssn:Property, ssn-system:Accuracy, schema:PropertyValue ;
-                schema:value 0.0003 ;
-                schema:unitCode unit:S-PER-M
+        sosa:hasSystemCapability [
+            a sosa:ObservationCollection ;
+            qudt:hasUnit unit:S-PER-M ;
+            sosa:hasMember [
+                a sosa:Observation ;
+                sosa:observedProperty ismatemplate:ConductivityAccuracy ;
+                sosa:hasSimpleResult 0.0003
             ], [
-                a ssn:Property, ssn-system:Resolution, schema:PropertyValue ;
-                schema:value 0.00001 ;
-                schema:unitCode unit:S-PER-M
+                a sosa:Observation ;
+                sosa:observedProperty ismatemplate:ConductivityResolution ;
+                sosa:hasSimpleResult 0.00001
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty ismatemplate:MinMeasurableConductivity ;
+                sosa:hasSimpleResult 350
+            ], [
+                a sosa:Observation ;
+                sosa:observedProperty ismatemplate:MaxMeasurableConductivity ;
+                sosa:hasSimpleResult 1650
             ]
         ]
     ] .
+
+# Local system-capability property terms for conductivity, absent from the draft's illustrative sample vocabulary.
+ismatemplate:ConductivityAccuracy a sosa:Property ;
+    rdfs:label "Conductivity accuracy"@en .
+ismatemplate:ConductivityResolution a sosa:Property ;
+    rdfs:label "Conductivity resolution"@en .
+ismatemplate:MinMeasurableConductivity a sosa:Property ;
+    rdfs:label "Minimum measurable conductivity"@en .
+ismatemplate:MaxMeasurableConductivity a sosa:Property ;
+    rdfs:label "Maximum measurable conductivity"@en .
 
 # Software decoder associated with this instrument-model profile.
 ismatemplate:CTD-SB37-DecodeDriver
@@ -174,5 +236,5 @@ ismatemplate:CTD-SB37-DecodeDriver
 
 # Example deployment of the model; instance-specific metadata belongs on this resource.
 ismainstance:CTD-042
-    a ssn:Deployment ;
-    ssn:deployedSystem ismatemplate:CTD-SB37 .
+    a sosa:Deployment ;
+    sosa:deployedSystem ismatemplate:CTD-SB37 .
