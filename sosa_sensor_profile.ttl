@@ -8,6 +8,7 @@
 @prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema:          <http://schema.org/> .
 @prefix sosa:            <http://www.w3.org/ns/sosa/> .
+@prefix ssn:             <http://www.w3.org/ns/ssn/> .
 @prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
 @prefix ssn-system:      <http://www.w3.org/ns/ssn/systems/> .
 @prefix omtype:          <http://www.opengis.net/def/observationType/OGC-OM/2.0/> .
@@ -18,6 +19,7 @@
 # This graph describes a reusable instrument-model template and its sensing subsystems.
 # The deployment at the end identifies one use of the model, not the model itself.
 ismatemplate:CTD-SB37
+
     # The entity responsable for the creation of this profile
     prov:wasAttributedTo <https://orcid.org/0000-0002-7997-219X> ;
     prov:qualifiedAttribution [
@@ -26,17 +28,17 @@ ismatemplate:CTD-SB37
       prov:hadRole <http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/author> ;
     ] ;
 
-    # The date time of creation of this profile
-	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
-
     # Version indicator for this semantic profile
     dcat:version "1.0.0" ;
+
+    # The date time of creation of this profile
+	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
     # The date time this version of the profile was last modified
 	dcterms:modified "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
     # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
-    a sosa:System, schema:ProductModel ;
+    a sosa:System, schema:ProductModel, prov:Entity ;
 
 	# The example URI identifies the version of the template this profile follows.
 	# Replace it with the persistent URI when the template specification is published.
@@ -47,8 +49,6 @@ ismatemplate:CTD-SB37
 	rdfs:label "SeaBird model SBE37" ;
 
     # Mandatory system-generated alternative identifier intended for systems requiring compact alphanumeric identifiers.
-    skos:notation "SB-SB37" ;
-    dcterms:identifier "a4a977dd-2b55-4927-bb6c-c8bdda52409d" ;
     dcterms:identifier "urn:uuid:6d7c67f6-9e9f-4c1e-8c44-bce7c2926932" ;
     adms:identifier [
         a adms:Identifier ;
@@ -80,7 +80,15 @@ ismatemplate:CTD-SB37
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
 
     # The decoder is software required to turn the instrument's encoded output into observations.
-    dcterms:requires ismatemplate:CTD-SB37-DecodeDriver ;
+	# Software decoder associated with this instrument-model profile.
+    dcterms:requires [
+        a schema:SoftwareSourceCode ;
+        schema:name "SBE37 data decoder" ;
+        schema:description "Software required to decode data streams produced by the CTD-SB37 model, including ASCII, XML, or JSON formats, and extract its observations as structured data."@en ;
+        schema:programmingLanguage "Python" ;
+        schema:encodingFormat "text/x-python" ;
+        schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py> .
+    ] ;
 
     # The following common-property values are demonstration values taken from the Sentinel YAML.
     # They illustrate the mapping and are not verified specifications of the SeaBird model.
@@ -154,7 +162,7 @@ ismatemplate:CTD-SB37
     ] ;
 
     # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
-    sosa:hasSubSystem [
+    ssn:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "T1" ;
 		sosa:observes p02:TEMP ;
@@ -184,7 +192,7 @@ ismatemplate:CTD-SB37
             ]
         ]
     ] ;
-    sosa:hasSubSystem [
+    ssn:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "C1" ;
 		sosa:observes p02:CNDC ;
@@ -214,12 +222,6 @@ ismatemplate:CTD-SB37
         ]
     ] .
 
-# Software decoder associated with this instrument-model profile.
-ismatemplate:CTD-SB37-DecodeDriver
-    a schema:SoftwareSourceCode ;
-    schema:name "SBE37 data decoder" ;
-    schema:description "Software required to decode data streams produced by the CTD-SB37 model, including ASCII, XML, or JSON formats, and extract its observations as structured data."@en ;
-    schema:programmingLanguage "Python" ;
-    schema:encodingFormat "text/x-python" ;
-    schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py> .
+
+
 
