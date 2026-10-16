@@ -1,6 +1,7 @@
 @prefix senscatalog:     <https://w3id.org/cnr-ismar/sensor-catalog/> .
 @prefix sensdesmap:      <https://w3id.org/cnr-ismar/ontology/sensorDescriptionMapping/1.0.0/> .
 @prefix orcid:           <https://orcid.org/> .
+@prefix vcard:           <http://www.w3.org/2006/vcard/ns#> .
 @prefix schema:          <http://schema.org/> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
@@ -26,14 +27,14 @@
 # This graph describes a reusable instrument-model template and its sensing subsystems.
 # The deployment at the end identifies one use of the model, not the model itself.
 senscatalog:CTD-SB37
-
     # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
     a sosa:System, schema:ProductModel, prov:Entity ;
 
 	# License model
 	dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
-    dcterms:rights "The licence (dcterms:license) applies to this metadata record only; it does not cover the physical instrument."@en ;
-    # Information about who can access the resource or an indication of its security status.
+	dcterms:rights "The licence (dcterms:license) applies to this metadata record only; it does not cover the physical instrument."@en ;
+
+	# Information about who can access the resource or an indication of its security status.
     dcterms:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
 
     # The entity responsible for creating this profile
@@ -44,6 +45,8 @@ senscatalog:CTD-SB37
 
     # The date and time this profile was created
 	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
+    ###prov:generatedAtTime --> Nel modello PROV, prov:generatedAtTime è pensata per essere associata ad una Entity che è il risultato di un'attività, non ha una risorsa RDF
+	###nel caso al limite: prov:generatedAtTime rdfs:subPropertyOf dcterms:created .
 
     # The date and time this version was last modified
 	dcterms:modified "2026-10-16T14:46:37Z"^^xsd:dateTime ;
@@ -60,6 +63,9 @@ senscatalog:CTD-SB37
     schema:mpn "SBE37-SMP-ODO" ;
     # NERC identifies this SeaBird model; GCMD classifies it as a CTD instrument class.
     dcterms:source <http://vocab.nerc.ac.uk/collection/L22/current/TOOL0869/> ;
+	### dcterms:source <https://rdfdata.lteritalschemaia.it/sensors/systemsType/SI/Sea-Bird_Electronics,_Inc./6924fe0f-82e7-4fb1-92e5-22e3b79e7eb9.xml>
+
+    # A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.
     schema:category <https://gcmd.earthdata.nasa.gov/kms/concept/01cc0beb-7c9a-40ed-ad86-0661b41aee53> ;
     dcterms:type <http://vocab.nerc.ac.uk/collection/P10/current/GI000722/> ;
 
@@ -81,17 +87,19 @@ senscatalog:CTD-SB37
        dcterms:type ex:SimpleString
     ] ;
 
-    dcat:landingPage <https://rdfdata.lteritalia.it/sensors/systemsType/NoX/JB_Hyperspectral_Devices/a4a977dd-2b55-4927-bb6c-c8bdda52409d.xml> ;
+    # A Web page that can be navigated to in a Web browser to gain access to a Dataset, a Distribution or a Data Service, and/or to additional information.
+    dcat:landingPage <https://w3id.org/cnr-ismar/sensor-catalog/CTD-SB37> ;
 
     # General model description, official product page, image, and datasheet.
 	# A description of the subject resource.
+	# rdfs:comment entails both schema:description and dcterms:description.
     rdfs:comment "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
 
     schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
     schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
-    #dct:references <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
-    # uguale al precedente??
+    #dcterms:references <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
+    ### uguale al precedente??
 
     # The decoder is software required to turn the instrument's encoded output into observations.
 	# Software decoder associated with this instrument-model profile.
@@ -105,7 +113,7 @@ senscatalog:CTD-SB37
     ] ;
 
 
-
+    # A material that something is made from, e.g. leather, wool, cotton, paper.
     schema:material "Plastic body with metal-shell connector" ;
 
     # Dimensions use centimetres (CMT); weight uses kilograms (KGM).
@@ -125,7 +133,6 @@ senscatalog:CTD-SB37
         schema:value 4.0 ;
         schema:unitCode "KGM"
     ] ;
-    # Zero width and height are copied as supplied in the reference YAML; check whether they mean unknown.
     # Additional common characteristics are expressed as PropertyValue pairs when Schema.org has no specific term.
     schema:additionalProperty [
         a schema:PropertyValue ;
@@ -177,9 +184,21 @@ senscatalog:CTD-SB37
         schema:unitCode "CEL"
     ] ;
 
+    # Relevant contact information for the cataloged resource
+	### dcat:contactPoint non identifica la persona o l'organizzazione responsabile.
+    ### Identifica invece: le informazioni di contatto di quella persona o organizzazione.
+    ### Questa distinzione è fondamentale ed è la stessa che trovi in DCAT-AP.
+    dcat:contactPoint [
+        a vcard:Individual ;
+        vcard:fn "Federico Bellati" ;
+        vcard:hasEmail <mailto:federico.bellati@cnr.it>
+    ] ;
+
+    ### sosa:observes
+	### Non è il modello di strumento che "observes" ma i suoi sottosistemi. E' una duplicazione.
 
     # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
-    ssn:hasSubSystem [
+    sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "T1" ;
 		sosa:observes p02:TEMP ;
@@ -209,7 +228,7 @@ senscatalog:CTD-SB37
             ]
         ]
     ] ;
-    ssn:hasSubSystem [
+    sosa:hasSubSystem [
         a sosa:Sensor ;
         dcterms:identifier "C1" ;
 		sosa:observes p02:CNDC ;
