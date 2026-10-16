@@ -1,31 +1,30 @@
-@prefix ismatemplate:    <https://w3id.org/cnr-ismar/sensor-template/> .
-@prefix ismainstance:    <https://w3id.org/cnr-ismar/sensor-instance/> .
+@prefix senscatalog:     <https://w3id.org/cnr-ismar/sensor-catalog/> .
+@prefix sensdesmap:      <https://w3id.org/cnr-ismar/ontology/sensorDescriptionMapping/1.0.0/> .
+@prefix schema:          <http://schema.org/> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
+@prefix unit:            <http://qudt.org/vocab/unit/> .
+@prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
 @prefix prov:            <http://www.w3.org/ns/prov#> .
 @prefix xsd:             <http://www.w3.org/2001/XMLSchema#> .
 @prefix adms:            <http://www.w3.org/ns/adms#> .
 @prefix dcat:            <http://www.w3.org/ns/dcat#> .
 @prefix owl:             <http://www.w3.org/2002/07/owl#> .
 @prefix rdfs:            <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix schema:          <http://schema.org/> .
-@prefix sensdesmap:      <https://w3id.org/cnr-ismar/ontology/main/sensorDescriptionMapping/1.0.0/> .
 @prefix sosa:            <http://www.w3.org/ns/sosa/> .
 @prefix ssn:             <http://www.w3.org/ns/ssn/> .
 @prefix skos:            <http://www.w3.org/2004/02/skos/core#> .
 @prefix ssn-system:      <http://www.w3.org/ns/ssn/systems/> .
 @prefix omtype:          <http://www.opengis.net/def/observationType/OGC-OM/2.0/> .
-@prefix unit:            <http://qudt.org/vocab/unit/> .
-@prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
 @prefix ex:              <https://example.org/> .
 
-@base <https://raw.githubusercontent.com/federicobellati/sensor_catalog/main/SBE37-SMP-ODO.ttl> .
+@base <https://w3id.org/cnr-ismar/sensor-catalog/SBE37-SMP-ODO.ttl> .
 
 <> a owl:Ontology ;
     owl:imports sensdesmap: .
 
 # This graph describes a reusable instrument-model template and its sensing subsystems.
 # The deployment at the end identifies one use of the model, not the model itself.
-ismatemplate:CTD-SB37
+senscatalog:CTD-SB37
 
     # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
     a sosa:System, schema:ProductModel, prov:Entity ;
@@ -34,7 +33,7 @@ ismatemplate:CTD-SB37
 	dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:rights "The licence (dcterms:license) applies to this metadata record only; it does not cover the physical instrument."@en ;
 
-    # The entity responsable for the creation of this profile
+    # The entity responsible for creating this profile
     prov:wasAttributedTo <https://orcid.org/0000-0002-7997-219X> ;
     prov:qualifiedAttribution [
       a prov:Attribution ;
@@ -45,15 +44,14 @@ ismatemplate:CTD-SB37
     # Version indicator for this semantic profile
     dcat:version "1.0.0" ;
 
-    # The date time of creation of this profile
+    # The date and time this profile was created
 	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
-    # The date time this version of the profile was last modified
+    # The date and time this version was last modified
 	dcterms:modified "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
-	# The example URI identifies the version of the template this profile follows.
-	# Replace it with the persistent URI when the template specification is published.
-	dcterms:conformsTo <https://w3id.org/cnr-ismar/sensor-template/v1.0.0> ;
+	# This URI identifies the version of the template this profile follows.
+	dcterms:conformsTo <https://w3id.org/cnr-ismar/semantic_profiles/sensor/1.0.0> ;
 
     # Manufacturer is linked to the NERC vocabulary entry; the labels are human-readable names.
     schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
@@ -97,7 +95,7 @@ ismatemplate:CTD-SB37
         schema:description "Software required to decode data streams produced by the CTD-SB37 model, including ASCII, XML, or JSON formats, and extract its observations as structured data."@en ;
         schema:programmingLanguage "Python" ;
         schema:encodingFormat "text/x-python" ;
-        schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py> .
+        schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py>
     ] ;
 
     # The following common-property values are demonstration values taken from the Sentinel YAML.
