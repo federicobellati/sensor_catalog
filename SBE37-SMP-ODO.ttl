@@ -1,5 +1,6 @@
 @prefix senscatalog:     <https://w3id.org/cnr-ismar/sensor-catalog/> .
 @prefix sensdesmap:      <https://w3id.org/cnr-ismar/ontology/sensorDescriptionMapping/1.0.0/> .
+@prefix orcid:           <https://orcid.org/> .
 @prefix schema:          <http://schema.org/> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
@@ -32,14 +33,11 @@ senscatalog:CTD-SB37
 	# License model
 	dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
     dcterms:rights "The licence (dcterms:license) applies to this metadata record only; it does not cover the physical instrument."@en ;
+    # Information about who can access the resource or an indication of its security status.
+    dcterms:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
 
     # The entity responsible for creating this profile
-    prov:wasAttributedTo <https://orcid.org/0000-0002-7997-219X> ;
-    prov:qualifiedAttribution [
-      a prov:Attribution ;
-      prov:agent <https://orcid.org/0000-0002-7997-219X> ;
-      prov:hadRole <http://inspire.ec.europa.eu/metadata-codelist/ResponsiblePartyRole/author> ;
-    ] ;
+    dcterms:creator orcid:0009-0000-9657-919X ;
 
     # Version indicator for this semantic profile
     dcat:version "1.0.0" ;
@@ -48,14 +46,26 @@ senscatalog:CTD-SB37
 	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
 
     # The date and time this version was last modified
-	dcterms:modified "2026-10-08T09:46:37Z"^^xsd:dateTime ;
+	dcterms:modified "2026-10-16T14:46:37Z"^^xsd:dateTime ;
 
 	# This URI identifies the version of the template this profile follows.
 	dcterms:conformsTo <https://w3id.org/cnr-ismar/semantic_profiles/sensor/1.0.0> ;
 
     # Manufacturer is linked to the NERC vocabulary entry; the labels are human-readable names.
     schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
-	rdfs:label "SeaBird model SBE37" ;
+
+    # The model of the product. Use with the URL of a ProductModel or a textual representation of the model identifier.
+    schema:model "SBE 37-SMP-ODO MicroCAT" ;
+	# The Manufacturer Part Number (MPN) of the product, or the product to which the offer refers
+    schema:mpn "SBE37-SMP-ODO" ;
+    # NERC identifies this SeaBird model; GCMD classifies it as a CTD instrument class.
+    dcterms:source <http://vocab.nerc.ac.uk/collection/L22/current/TOOL0869/> ;
+    schema:category <https://gcmd.earthdata.nasa.gov/kms/concept/01cc0beb-7c9a-40ed-ad86-0661b41aee53> ;
+    dcterms:type <http://vocab.nerc.ac.uk/collection/P10/current/GI000722/> ;
+
+    # Human-readable version of a resource's name or a name given to the resource (dcterms style)
+	# dcterms:title --> rdfs:label
+	dcterms:title "SeaBird model SBE37"@en ;
 
     # Mandatory system-generated alternative identifier intended for systems requiring compact alphanumeric identifiers.
     dcterms:identifier "urn:uuid:6d7c67f6-9e9f-4c1e-8c44-bce7c2926932" ;
@@ -73,19 +83,15 @@ senscatalog:CTD-SB37
 
     dcat:landingPage <https://rdfdata.lteritalia.it/sensors/systemsType/NoX/JB_Hyperspectral_Devices/a4a977dd-2b55-4927-bb6c-c8bdda52409d.xml> ;
 
-    # The product part number identifies the specific SBE37 variant represented in this example.
-    schema:mpn "SBE37-SMP-ODO" ;
-
-    # NERC identifies this SeaBird model; GCMD classifies it as a CTD instrument class.
-    dcterms:source <http://vocab.nerc.ac.uk/collection/L22/current/TOOL0869/> ;
-    schema:category <https://gcmd.earthdata.nasa.gov/kms/concept/01cc0beb-7c9a-40ed-ad86-0661b41aee53> ;
-
     # General model description, official product page, image, and datasheet.
+	# A description of the subject resource.
     rdfs:comment "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
 
     schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
     schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
+    #dct:references <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
+    # uguale al precedente??
 
     # The decoder is software required to turn the instrument's encoded output into observations.
 	# Software decoder associated with this instrument-model profile.
@@ -98,9 +104,10 @@ senscatalog:CTD-SB37
         schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py>
     ] ;
 
-    # The following common-property values are demonstration values taken from the Sentinel YAML.
-    # They illustrate the mapping and are not verified specifications of the SeaBird model.
+
+
     schema:material "Plastic body with metal-shell connector" ;
+
     # Dimensions use centimetres (CMT); weight uses kilograms (KGM).
     # Length and diameter are represented as additional properties because Schema.org has no dedicated terms for them.
     schema:width [
@@ -159,6 +166,7 @@ senscatalog:CTD-SB37
     ], [
         a schema:PropertyValue ;
         schema:name "inputPowerRange" ;
+		schema:propertyID <https://vocab.nerc.ac.uk/collection/W05/current/CHAR0008/> ;
         schema:value "12-20 VDC"
     ], [
         a schema:PropertyValue ;
@@ -168,6 +176,7 @@ senscatalog:CTD-SB37
         schema:maxValue 45 ;
         schema:unitCode "CEL"
     ] ;
+
 
     # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
     ssn:hasSubSystem [
