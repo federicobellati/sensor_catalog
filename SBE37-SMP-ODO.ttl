@@ -21,238 +21,373 @@
 
 @base <https://w3id.org/cnr-ismar/sensor-catalog/SBE37-SMP-ODO.ttl> .
 
+##** FAIR — principale: I1; secondaria: R1.3. Questo grafo RDF usa un linguaggio formale e dichiara l’ontologia secondo vocabolari e standard condivisi.
 <> a owl:Ontology ;
+    ##** FAIR — principale: I2; secondaria: I1. L’import collega un vocabolario o modello semantico riusabile; il grafo usa un linguaggio formale condiviso.
     owl:imports sensdesmap: .
 
 # This graph describes a reusable instrument-model template and its sensing subsystems.
 # The deployment at the end identifies one use of the model, not the model itself.
+##** FAIR — principale: I1; secondaria: R1.3. Tipizza il sistema con classi SOSA/SSN e Schema.org condivise.
 senscatalog:CTD-SB37
     # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
     a sosa:System, schema:ProductModel, prov:Entity ;
 
-	# License model
+	# Provide the license that applies to the metadata record.
+	##** FAIR — principale: R1.1; secondaria: F2. Specifica la licenza di riuso dei metadati e aggiunge un attributo rilevante; non dimostra di per sé che il protocollo di accesso sia aperto.
 	dcterms:license <https://creativecommons.org/licenses/by/4.0/> ;
+	##** FAIR — principale: R1.1; secondaria: F2. Chiarisce l’ambito dei diritti della risorsa descritta e arricchisce i metadati.
 	dcterms:rights "The licence (dcterms:license) applies to this metadata record only; it does not cover the physical instrument."@en ;
 
 	# Information about who can access the resource or an indication of its security status.
+    ##** FAIR — principale: R1; secondaria: A1.2. Dichiara lo stato di accesso del record; questa informazione descrive i metadati, ma non dimostra la raggiungibilità o le funzioni del protocollo.
     dcterms:accessRights <http://publications.europa.eu/resource/authority/access-right/PUBLIC> ;
 
     # The entity responsible for creating this profile
+    ##** FAIR — principale: R1.2; secondaria: F2. Attribuisce la creazione del profilo, fornendo provenienza e contesto descrittivo.
     dcterms:creator orcid:0009-0000-9657-919X ;
 
     # Version indicator for this semantic profile
+    ##** FAIR — principale: R1; secondaria: F2. Identifica la versione del profilo come attributo descrittivo accurato e rilevante.
     dcat:version "1.0.0" ;
 
     # The date and time this profile was created
+	##** FAIR — principale: R1.2; secondaria: F2. Registra quando è stato creato il profilo, elemento della sua provenienza descrittiva.
 	dcterms:created "2026-10-08T09:46:37Z"^^xsd:dateTime ;
     ###prov:generatedAtTime --> Nel modello PROV, prov:generatedAtTime è pensata per essere associata ad una Entity che è il risultato di un'attività, non ha una risorsa RDF
 	###nel caso al limite: prov:generatedAtTime rdfs:subPropertyOf dcterms:created .
 
     # The date and time this version was last modified
+	##** FAIR — principale: R1.2; secondaria: F2. Registra quando il profilo è stato aggiornato, elemento della sua provenienza descrittiva.
 	dcterms:modified "2026-10-16T14:46:37Z"^^xsd:dateTime ;
 
 	# This URI identifies the version of the template this profile follows.
+	##** FAIR — principale: R1.3; secondaria: I1. Collega il profilo alla specifica di comunità che segue; la conformità è dichiarata con un URI.
 	dcterms:conformsTo <https://w3id.org/cnr-ismar/semantic_profiles/sensor/1.0.0> ;
 
-    # Manufacturer is linked to the NERC vocabulary entry; the labels are human-readable names.
+    # Link the manufacturer using the URI of its entry in an applicable controlled vocabulary; labels are for human-readable names.
+    ##** FAIR — principale: I2; secondaria: R1. Usa un URI di vocabolario controllato per il produttore e aggiunge un attributo descrittivo rilevante.
     schema:manufacturer <http://vocab.nerc.ac.uk/collection/L35/current/MAN0013/> ;
 
     # The model of the product. Use with the URL of a ProductModel or a textual representation of the model identifier.
+    ##** FAIR — principale: R1; secondaria: F2. Fornisce il nome del modello come attributo descrittivo del dispositivo.
     schema:model "SBE 37-SMP-ODO MicroCAT" ;
 	# The Manufacturer Part Number (MPN) of the product, or the product to which the offer refers
+    ##** FAIR — principale: R1; secondaria: F2. Fornisce il codice del produttore come attributo descrittivo del modello.
     schema:mpn "SBE37-SMP-ODO" ;
     # NERC identifies this SeaBird model; GCMD classifies it as a CTD instrument class.
+    ##** FAIR — principale: I3; secondaria: I2. Riferisce una voce esterna pertinente al modello; la risorsa collegata proviene da un vocabolario identificato.
     dcterms:source <http://vocab.nerc.ac.uk/collection/L22/current/TOOL0869/> ;
 	### dcterms:source <https://rdfdata.lteritalschemaia.it/sensors/systemsType/SI/Sea-Bird_Electronics,_Inc./6924fe0f-82e7-4fb1-92e5-22e3b79e7eb9.xml>
 
     # A category for the item. Greater signs or slashes can be used to informally indicate a category hierarchy.
+    ##** FAIR — principale: I2; secondaria: R1. Classifica il dispositivo con un URI di vocabolario controllato e aggiunge una descrizione rilevante.
     schema:category <https://gcmd.earthdata.nasa.gov/kms/concept/01cc0beb-7c9a-40ed-ad86-0661b41aee53> ;
+    ##** FAIR — principale: I2; secondaria: R1. Assegna una classificazione URI, rendendo il tipo interpretabile tramite un vocabolario.
     dcterms:type <http://vocab.nerc.ac.uk/collection/P10/current/GI000722/> ;
 
     # Human-readable version of a resource's name or a name given to the resource (dcterms style)
 	# dcterms:title --> rdfs:label
+	##** FAIR — principale: F2; secondaria: R1. Fornisce un titolo leggibile che descrive il record e ne aumenta la ricchezza informativa.
 	dcterms:title "SeaBird model SBE37"@en ;
 
     # Mandatory system-generated alternative identifier intended for systems requiring compact alphanumeric identifiers.
+    ##** FAIR — principale: F1; secondaria: F3. Il valore è in forma URN UUID e viene dichiarato nei metadati, ma la persistenza e l’assegnazione come URI del record vanno garantite dal sistema che lo pubblica.
     dcterms:identifier "urn:uuid:6d7c67f6-9e9f-4c1e-8c44-bce7c2926932" ;
+    ##** FAIR — principale: F2; secondaria: R1. Aggiunge identificatori alternativi strutturati come metadati descrittivi; la notazione non prova unicità globale e persistenza.
     adms:identifier [
+        ##** FAIR — principale: I1; secondaria: F2. Descrive formalmente il nodo identificatore usando ADMS; l’attributo arricchisce i metadati.
         a adms:Identifier ;
+        ##** FAIR — principale: F2; secondaria: I2. Registra una notazione leggibile per l’identificatore; il valore è testuale e non prova da solo l’uso di un termine controllato.
         skos:notation "adriatic_temperature_daily" ;
+        ##** FAIR — principale: R1; secondaria: F2. Indica il tipo locale della notazione dell’identificatore e aggiunge metadati, ma il namespace example.org non costituisce un vocabolario FAIR condiviso.
         dcterms:type ex:String32
     ] ;
 
+    ##** FAIR — principale: F2; secondaria: R1. Aggiunge identificatori alternativi strutturati come metadati descrittivi; la notazione non prova unicità globale e persistenza.
     adms:identifier [
+        ##** FAIR — principale: I1; secondaria: F2. Descrive formalmente il nodo identificatore usando ADMS; l’attributo arricchisce i metadati.
         a adms:Identifier ;
+        ##** FAIR — principale: F2; secondaria: I2. Registra una notazione leggibile per l’identificatore; il valore è testuale e non prova da solo l’uso di un termine controllato.
         skos:notation "ismar_temp_001" ;
+       ##** FAIR — principale: R1; secondaria: F2. Indica il tipo locale della notazione dell’identificatore e aggiunge metadati, ma il namespace example.org non costituisce un vocabolario FAIR condiviso.
        dcterms:type ex:SimpleString
     ] ;
 
     # A Web page that can be navigated to in a Web browser to gain access to a Dataset, a Distribution or a Data Service, and/or to additional information.
+    ##** FAIR — principale: A1.1; secondaria: F2. Indica un punto web di recupero secondo un protocollo standard, se la pagina è effettivamente raggiungibile; il link non prova che il record sia indicizzato.
     dcat:landingPage <https://w3id.org/cnr-ismar/sensor-catalog/CTD-SB37> ;
 
     # General model description, official product page, image, and datasheet.
 	# A description of the subject resource.
 	# rdfs:comment entails both schema:description and dcterms:description.
+    ##** FAIR — principale: F2; secondaria: R1. Fornisce una descrizione testuale sostanziale del modello e dei suoi attributi.
     rdfs:comment "A series of high accuracy conductivity and temperature recorders with optional pressure sensors and an Optical Dissolved Oxygen (ODO) sensor designed for deployment on moorings. The SM model uses a serial interface (SM) for real-time data transmissions and has internal batteries. It is fitted with an integral pump (P). The sensors may or may not have an integrated pressure sensor."@en ;
 
+    ##** FAIR — principale: A1.1; secondaria: I3. Collega alla pagina web del produttore tramite HTTP(S); è un riferimento correlato, non prova da solo un identificatore persistente.
     schema:url <https://www.seabird.com/products/sbe-37-microcat?id=54627886792> ;
+    ##** FAIR — principale: I3; secondaria: F2. Collega un’immagine esterna pertinente e arricchisce la descrizione del modello.
     schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
+    ##** FAIR — principale: I3; secondaria: R1.3. Collega la scheda tecnica pertinente come riferimento documentale, secondo una relazione Schema.org condivisa.
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
     #dcterms:references <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
     ### uguale al precedente??
 
     # The decoder is software required to turn the instrument's encoded output into observations.
 	# Software decoder associated with this instrument-model profile.
+    ##** FAIR — principale: I3; secondaria: F2. Collega il modello al software necessario per interpretarne l’output e arricchisce la descrizione d’uso.
     dcterms:requires [
+        ##** FAIR — principale: I1; secondaria: R1.3. Descrive il software usando una classe Schema.org riconosciuta.
         a schema:SoftwareSourceCode ;
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "SBE37 data decoder" ;
+        ##** FAIR — principale: F2; secondaria: R1. Spiega la funzione del decoder con una descrizione testuale ricca e rilevante.
         schema:description "Software required to decode data streams produced by the CTD-SB37 model, including ASCII, XML, or JSON formats, and extract its observations as structured data."@en ;
+        ##** FAIR — principale: R1; secondaria: F2. Specifica il linguaggio di implementazione come attributo rilevante del software.
         schema:programmingLanguage "Python" ;
+        ##** FAIR — principale: I2; secondaria: R1. Specifica il formato con un identificatore MIME riconoscibile e aggiunge un attributo descrittivo.
         schema:encodingFormat "text/x-python" ;
+        ##** FAIR — principale: I3; secondaria: F2. Collega il software necessario con un URI esplicito; la relazione arricchisce i metadati ma non prova che il file sia accessibile.
         schema:url <https://example.org/drivers/ctd-sb37-decode-driver.py>
     ] ;
 
 
     # A material that something is made from, e.g. leather, wool, cotton, paper.
+    ##** FAIR — principale: R1; secondaria: F2. Descrive la composizione fisica come attributo pertinente del modello.
     schema:material "Plastic body with metal-shell connector" ;
 
-    # Dimensions use centimetres (CMT); weight uses kilograms (KGM).
+    # Provide units for dimensions and weight.
     # Length and diameter are represented as additional properties because Schema.org has no dedicated terms for them.
+    ##** FAIR — principale: R1; secondaria: F2. Descrive una dimensione quantitativa del modello.
     schema:width [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta quantità e unità in forma strutturata e formalmente interpretabile.
         a schema:QuantitativeValue ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value 0.0 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "CMT"
     ] ;
+    ##** FAIR — principale: R1; secondaria: F2. Descrive una dimensione quantitativa del modello.
     schema:height [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta quantità e unità in forma strutturata e formalmente interpretabile.
         a schema:QuantitativeValue ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value 0.0 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "CMT"
     ] ;
+    ##** FAIR — principale: R1; secondaria: F2. Descrive il peso del modello come attributo quantitativo.
     schema:weight [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta quantità e unità in forma strutturata e formalmente interpretabile.
         a schema:QuantitativeValue ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value 4.0 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "KGM"
     ] ;
     # Additional common characteristics are expressed as PropertyValue pairs when Schema.org has no specific term.
+    ##** FAIR — principale: R1; secondaria: F2. Aggiunge caratteristiche del modello non coperte da proprietà specifiche, arricchendo i metadati.
     schema:additionalProperty [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Instrument may be physical or virtual.
+        # Indicate whether the instrument is physical or virtual.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "deviceType" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value "virtual"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Indicates whether the instrument stores measurements internally.
+        # Indicate whether the instrument stores measurements internally.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "temporaryStorage" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value true
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Describes the data as instantaneous, cumulative, or various.
+        # Indicate whether the data are instantaneous, cumulative, or of another type.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "dataType" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value "instantaneous"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
         # Format of the data produced by the instrument.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "outputDataFormat" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value "proprietary"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Length and diameter are in centimetres.
+        # Provide a unit for each length and diameter value.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "length" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value 17.3 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "CMT"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "diameter" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value 17.8 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "CMT"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Power supply characteristics are useful for operation and maintenance.
+        # Provide the power supply characteristics required to assess operation and maintenance.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "electricalCurrentType" ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value "DC"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "inputPowerRange" ;
+		##** FAIR — principale: I2; secondaria: I3. Collega la proprietà a un identificatore di vocabolario esterno e qualificato.
 		schema:propertyID <https://vocab.nerc.ac.uk/collection/W05/current/CHAR0008/> ;
+        ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
         schema:value "12-20 VDC"
     ], [
+        ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
         a schema:PropertyValue ;
-        # Operating temperature limits are expressed in degrees Celsius.
+        # Provide operating temperature limits with their units.
+        ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
         schema:name "operatingTemperature" ;
+        ##** FAIR — principale: F2; secondaria: R1. Registra il limite inferiore dell’intervallo come attributo quantitativo descrittivo.
         schema:minValue -5 ;
+        ##** FAIR — principale: F2; secondaria: R1. Registra il limite superiore dell’intervallo come attributo quantitativo descrittivo.
         schema:maxValue 45 ;
+        ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
         schema:unitCode "CEL"
     ] ;
 
-    # Relevant contact information for the cataloged resource
+    # Relevant contact information for the catalogued resource
 	### dcat:contactPoint non identifica la persona o l'organizzazione responsabile.
     ### Identifica invece: le informazioni di contatto di quella persona o organizzazione.
     ### Questa distinzione è fondamentale ed è la stessa che trovi in DCAT-AP.
+    ##** FAIR — principale: R1.2; secondaria: F2. Registra il contatto associato al record, aggiungendo contesto e informazioni descrittive; non equivale a un meccanismo di autenticazione.
     dcat:contactPoint [
+        ##** FAIR — principale: I1; secondaria: R1.3. Tipizza il contatto con il vocabolario vCard standard.
         a vcard:Individual ;
+        ##** FAIR — principale: R1; secondaria: F2. Fornisce il nome leggibile del contatto come metadato descrittivo.
         vcard:fn "Federico Bellati" ;
+        ##** FAIR — principale: R1.2; secondaria: F2. Fornisce il recapito del contatto come informazione di provenienza e descrizione; non realizza autenticazione o autorizzazione.
         vcard:hasEmail <mailto:federico.bellati@cnr.it>
     ] ;
 
     ### sosa:observes
 	### Non è il modello di strumento che "observes" ma i suoi sottosistemi. E' una duplicazione.
 
-    # Each subsystem represents one sensing component; sosa:observes links it to the measured property.
+    # Each subsystem represents one sensing component; sosa:observes links it to the property it observes.
+    ##** FAIR — principale: I1; secondaria: R1. Modella strutturalmente i componenti con una relazione standard SOSA e arricchisce la descrizione del sistema.
     sosa:hasSubSystem [
+        ##** FAIR — principale: I1; secondaria: R1.3. Tipizza il sottosistema sensore secondo SOSA/SSN.
         a sosa:Sensor ;
+        ##** FAIR — principale: R1; secondaria: F2. Etichetta localmente il sottosistema nel profilo; non dimostra un identificatore globale e persistente (F1).
         dcterms:identifier "T1" ;
+		##** FAIR — principale: I2; secondaria: I3. Collega il sensore alla proprietà osservata identificata tramite P02; il riferimento URI è semanticamente qualificato.
 		sosa:observes p02:TEMP ;
+		##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
 		schema:unitCode unit:DEG_C ;
+        ##** FAIR — principale: R1; secondaria: F2. Aggiunge caratteristiche del modello non coperte da proprietà specifiche, arricchendo i metadati.
         schema:additionalProperty [
+            ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
             a schema:PropertyValue ;
+            ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
             schema:name "observationType" ;
+            ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
             schema:value omtype:OM_Measurement
         ] ;
-        # Accuracy, resolution, and range are system capabilities, with their measurement units.
+        # Describe system capabilities with the relevant property, value, and unit where applicable.
+        ##** FAIR — principale: I1; secondaria: R1.3. Collega il sensore alle capacità secondo il modello formale e il modulo SSN Systems.
         ssn-system:hasSystemCapability [
+            ##** FAIR — principale: I1; secondaria: R1.3. Descrive la capacità con la classe del modulo SSN Systems.
             a ssn-system:SystemCapability ;
+            ##** FAIR — principale: I1; secondaria: R1.3. Collega una capacità alle sue proprietà tramite la relazione standard SSN Systems.
             ssn-system:hasSystemProperty [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
                 schema:value 0.01 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:DEG_C
             ], [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, ssn-system:Resolution, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
                 schema:value 0.0001 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:DEG_C
             ], [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
                 schema:name "measurementRange" ;
+                ##** FAIR — principale: F2; secondaria: R1. Registra il limite inferiore dell’intervallo come attributo quantitativo descrittivo.
                 schema:minValue 350 ;
+                ##** FAIR — principale: F2; secondaria: R1. Registra il limite superiore dell’intervallo come attributo quantitativo descrittivo.
                 schema:maxValue 1650 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:DEG_C
             ]
         ]
     ] ;
+    ##** FAIR — principale: I1; secondaria: R1. Modella strutturalmente i componenti con una relazione standard SOSA e arricchisce la descrizione del sistema.
     sosa:hasSubSystem [
+        ##** FAIR — principale: I1; secondaria: R1.3. Tipizza il sottosistema sensore secondo SOSA/SSN.
         a sosa:Sensor ;
+        ##** FAIR — principale: R1; secondaria: F2. Etichetta localmente il sottosistema nel profilo; non dimostra un identificatore globale e persistente (F1).
         dcterms:identifier "C1" ;
+		##** FAIR — principale: I2; secondaria: I3. Collega il sensore alla proprietà osservata identificata tramite P02; il riferimento URI è semanticamente qualificato.
 		sosa:observes p02:CNDC ;
+		##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
 		schema:unitCode unit:S-PER-M ;
+        ##** FAIR — principale: R1; secondaria: F2. Aggiunge caratteristiche del modello non coperte da proprietà specifiche, arricchendo i metadati.
         schema:additionalProperty [
+            ##** FAIR — principale: I1; secondaria: F2. Rappresenta una coppia proprietà-valore con la struttura condivisa Schema.org.
             a schema:PropertyValue ;
+            ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
             schema:name "observationType" ;
+            ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
             schema:value omtype:OM_Measurement
         ] ;
+        ##** FAIR — principale: I1; secondaria: R1.3. Collega il sensore alle capacità secondo il modello formale e il modulo SSN Systems.
         ssn-system:hasSystemCapability [
+            ##** FAIR — principale: I1; secondaria: R1.3. Descrive la capacità con la classe del modulo SSN Systems.
             a ssn-system:SystemCapability ;
+            ##** FAIR — principale: I1; secondaria: R1.3. Collega una capacità alle sue proprietà tramite la relazione standard SSN Systems.
             ssn-system:hasSystemProperty [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, ssn-system:Accuracy, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
                 schema:value 0.0003 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:S-PER-M
             ], [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, ssn-system:Resolution, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Fornisce il valore della caratteristica descritta e completa i metadati quantitativi o qualitativi.
                 schema:value 0.00001 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:S-PER-M
             ], [
+                ##** FAIR — principale: I1; secondaria: R1.3. Tipizza la proprietà/capacità con classi condivise SOSA e SSN.
                 a sosa:Property, schema:PropertyValue ;
+                ##** FAIR — principale: F2; secondaria: R1. Nomina il valore descritto nel nodo software/proprietà, rendendo espliciti metadati pertinenti.
                 schema:name "measurementRange" ;
+                ##** FAIR — principale: F2; secondaria: R1. Registra il limite inferiore dell’intervallo come attributo quantitativo descrittivo.
                 schema:minValue 350 ;
+                ##** FAIR — principale: F2; secondaria: R1. Registra il limite superiore dell’intervallo come attributo quantitativo descrittivo.
                 schema:maxValue 1650 ;
+                ##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
                 schema:unitCode unit:S-PER-M
             ]
         ]
