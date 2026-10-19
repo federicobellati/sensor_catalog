@@ -1,5 +1,6 @@
 @prefix senscatalog:     <https://w3id.org/cnr-ismar/sensor-catalog/> .
 @prefix sensdesmap:      <https://w3id.org/cnr-ismar/ontology/sensorDescriptionMapping/1.0.0/> .
+@prefix platcatalog:     <https://w3id.org/cnr-ismar/platform-catalog/> .
 @prefix orcid:           <https://orcid.org/> .
 @prefix vcard:           <http://www.w3.org/2006/vcard/ns#> .
 @prefix schema:          <http://schema.org/> .
@@ -33,6 +34,10 @@
 senscatalog:CTD-SB37
     # sosa:System describes the instrument system; schema:ProductModel identifies its product model.
     a sosa:System, schema:ProductModel, prov:Entity ;
+
+    # Definition: isHostedBy relates a System to the Platform that hosts it.
+    ##** FAIR — principale: I1; secondaria: R1.3. Collega il sistema SBE37 alla piattaforma AAOT con la relazione SOSA prevista per un sistema ospitato da una piattaforma.
+    sosa:isHostedBy platcatalog:AAOT ;
 
 	# Provide the license that applies to the metadata record.
 	##** FAIR — principale: R1.1; secondaria: F2. Specifica la licenza di riuso dei metadati e aggiunge un attributo rilevante; non dimostra di per sé che il protocollo di accesso sia aperto.
