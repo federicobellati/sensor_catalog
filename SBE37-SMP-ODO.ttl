@@ -4,6 +4,7 @@
 @prefix vcard:           <http://www.w3.org/2006/vcard/ns#> .
 @prefix schema:          <http://schema.org/> .
 @prefix dcterms:         <http://purl.org/dc/terms/> .
+@prefix foaf:            <http://xmlns.com/foaf/0.1/> .
 @prefix unit:            <http://qudt.org/vocab/unit/> .
 @prefix p02:             <http://vocab.nerc.ac.uk/collection/P02/current/> .
 @prefix prov:            <http://www.w3.org/ns/prov#> .
@@ -46,6 +47,14 @@ senscatalog:CTD-SB37
     # The entity responsible for creating this profile
     ##** FAIR — principale: R1.2; secondaria: F2. Attribuisce la creazione del profilo, fornendo provenienza e contesto descrittivo.
     dcterms:creator orcid:0009-0000-9657-919X ;
+
+    # The entity responsible for making the resource available (dcterms:publisher definition).
+    ##** FAIR — principale: R1.2; secondaria: F2. Identifica l’organizzazione responsabile della disponibilità del profilo, aggiungendo un’informazione di provenienza e arricchendo i metadati descrittivi.
+    dcterms:publisher [
+        a prov:Agent, prov:Organization, foaf:Organization ;
+        foaf:name "Istituto di Scienze Marine del Consiglio Nazionale delle Ricerche" ;
+        owl:sameAs <https://ror.org/02hdf6119>
+    ] ;
 
     # Version indicator for this semantic profile
     ##** FAIR — principale: R1; secondaria: F2. Identifica la versione del profilo come attributo descrittivo accurato e rilevante.
@@ -273,11 +282,14 @@ senscatalog:CTD-SB37-TEMP
         ##** FAIR — principale: I1; secondaria: R1.3. Tipizza il sottosistema sensore secondo SOSA/SSN.
         a sosa:Sensor ;
         rdfs:label "CTD-SB37 temperature subsystem"@en ;
-        rdfs:comment "Temperature sensing subsystem of the CTD-SB37 instrument model; it observes temperature (P02 TEMP) in degrees Celsius."@en ;
+        rdfs:comment "Temperature sensing subsystem of the CTD-SB37 instrument model; as a component system, it belongs to the CTD-SB37 system and observes temperature (P02 TEMP) in degrees Celsius."@en ;
         ##** FAIR — principale: R1; secondaria: F2. Registra il codice locale del componente; l’URI del soggetto identifica il sottosistema nel catalogo.
         dcterms:identifier "T1" ;
 		##** FAIR — principale: I2; secondaria: I3. Collega il sensore alla proprietà osservata identificata tramite P02; il riferimento URI è semanticamente qualificato.
 		sosa:observes p02:TEMP ;
+		# Definition: relates a component System to the System it belongs to.
+		##** FAIR — principale: I1; secondaria: R1.3. Usa la relazione SOSA standard per identificare il sistema padre e favorire l’interoperabilità del profilo.
+		sosa:isSubSystemOf senscatalog:CTD-SB37 ;
 		##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
 		schema:unitCode unit:DEG_C ;
         ##** FAIR — principale: I1; secondaria: F2. Rappresenta il tipo di osservazione come coppia proprietà-valore Schema.org con valore esplicito.
@@ -314,11 +326,14 @@ senscatalog:CTD-SB37-CNDC
         ##** FAIR — principale: I1; secondaria: R1.3. Tipizza il sottosistema sensore secondo SOSA/SSN.
         a sosa:Sensor ;
         rdfs:label "CTD-SB37 conductivity subsystem"@en ;
-        rdfs:comment "Conductivity sensing subsystem of the CTD-SB37 instrument model; it observes conductivity (P02 CNDC) in siemens per metre."@en ;
+        rdfs:comment "Conductivity sensing subsystem of the CTD-SB37 instrument model; as a component system, it belongs to the CTD-SB37 system and observes conductivity (P02 CNDC) in siemens per metre."@en ;
         ##** FAIR — principale: R1; secondaria: F2. Registra il codice locale del componente; l’URI del soggetto identifica il sottosistema nel catalogo.
         dcterms:identifier "C1" ;
 		##** FAIR — principale: I2; secondaria: I3. Collega il sensore alla proprietà osservata identificata tramite P02; il riferimento URI è semanticamente qualificato.
 		sosa:observes p02:CNDC ;
+		# Definition: relates a component System to the System it belongs to.
+		##** FAIR — principale: I1; secondaria: R1.3. Usa la relazione SOSA standard per identificare il sistema padre e favorire l’interoperabilità del profilo.
+		sosa:isSubSystemOf senscatalog:CTD-SB37 ;
 		##** FAIR — principale: I2; secondaria: I1. Esprime l’unità mediante un codice URI o codice standard, rendendo il valore interpretabile in forma strutturata.
 		schema:unitCode unit:S-PER-M ;
         ##** FAIR — principale: I1; secondaria: F2. Rappresenta il tipo di osservazione come coppia proprietà-valore Schema.org con valore esplicito.
