@@ -124,6 +124,8 @@ senscatalog:CTD-SB37
     schema:image <https://www.seabird.com/hubfs/Imagery/Product%20Imagery/SBE%2037/Renderings/SBE37_3qtr.png> ;
     ##** FAIR — principale: I3; secondaria: R1.3. Collega la scheda tecnica pertinente come riferimento documentale, secondo una relazione Schema.org condivisa.
     schema:subjectOf <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
+    ##** FAIR — primary: I3; secondary: F2. Links the source document for the compliance metadata, making its provenance retrievable and the record more complete.
+    dcterms:source <https://www.comm-tec.com/prods/mfgs/SBE/manuals_pdf/37SMP-ODO_RS232_002.pdf> ;
     #dcterms:references <https://www.seabird.com/cms-portals/seabird_com/cms/documents/datasheets/37-SMP-ODO.pdf> ;
     ### uguale al precedente??
 
@@ -222,6 +224,27 @@ senscatalog:CTD-SB37
         schema:minValue -5 ;
         schema:maxValue 45 ;
         schema:unitCode "CEL"
+    ], [
+    ##** FAIR — primary: I1; secondary: F2. Encodes standards as a structured property-value pair using the profile's existing Schema.org extension pattern.
+        a schema:PropertyValue ;
+        # Record the standards listed in the historical manufacturer Declaration of Conformity.
+        schema:name "standards" ;
+        schema:value "EN 61326-1:2006 Class A; EN 55011:2007 Group 1, Class A" ;
+        schema:description "Listed in the SBE 37-SMP-ODO manual's Declaration of Conformity dated 27 June 2012; verify against the declaration for the specific instrument and revision."@en
+    ], [
+    ##** FAIR — primary: I1; secondary: F2. Encodes the cited safety standard with provenance and qualification in a structured property-value pair.
+        a schema:PropertyValue ;
+        # Record the safety standard listed in the historical manufacturer Declaration of Conformity.
+        schema:name "safety_norm" ;
+        schema:value "EN 61010-1:2001" ;
+        schema:description "Listed in the SBE 37-SMP-ODO manual's Declaration of Conformity dated 27 June 2012; verify against the declaration for the specific instrument and revision."@en
+    ], [
+    ##** FAIR — primary: I1; secondary: F2. Records the user-provided test-profile IP value as a structured attribute and documents its provenance and scope.
+        a schema:PropertyValue ;
+        # Use the IP value requested for this description.
+        schema:name "ipCode" ;
+        schema:value "IP65" ;
+        schema:description "User-provided test-profile value; no IP rating is asserted by the cited manufacturer datasheet."@en
     ] ;
 
     # Relevant contact information for the catalogued resource
